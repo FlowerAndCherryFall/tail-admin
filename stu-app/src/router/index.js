@@ -22,14 +22,23 @@ const routes = [
   {
     path: "/myself",
     name: "myself",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/users/myself.vue"),
+    component: () => import("../views/users/myself.vue"),
+  },
+  {
+    path: "/updataUser",
+    name: "updataUser",
+    component: () => import("../views/users/updatamsg.vue"),
   },
   {
     path: "/login",
     name: "login",
+    component: () => import("../views/users/login.vue"),
+  },
+  {
+    path: "/timetable",
+    name: "timetable",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/users/login.vue"),
+      import(/* webpackChunkName: "about" */ "../views/timetable.vue"),
   },
 ];
 

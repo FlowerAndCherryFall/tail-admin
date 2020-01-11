@@ -3,7 +3,7 @@
     <van-tabbar v-model="active">
       <van-tabbar-item to="/" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item to="/about" icon="search">考勤</van-tabbar-item>
-      <van-tabbar-item to="/login" icon="friends-o">课表</van-tabbar-item>
+      <van-tabbar-item to="/timetable" icon="friends-o">课表</van-tabbar-item>
       <van-tabbar-item to="/myself" icon="setting-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>

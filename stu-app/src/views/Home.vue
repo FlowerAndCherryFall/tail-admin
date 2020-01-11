@@ -12,6 +12,9 @@
       </van-search>
     </div>
     <div class="main">
+      <ul class="searlist" v-for="p in searchListContent" :key="p.latitude">
+        <li>{{p.name}}</li>
+      </ul>
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>
           <img src="../../public/img/8.jpg" alt />
@@ -55,12 +58,15 @@
           </div>
         </van-card>
       </div>
+      <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5" />
     </div>
   </div>
 </template>
 
 <script>
 import { getList } from "@/api/book";
+import axios from "axios";
+import { type } from "os";
 export default {
   name: "home",
   data() {
@@ -70,14 +76,35 @@ export default {
       loading: false,
       finished: false,
       defimg:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ63iAuCesBtFQA5pfxobqjNj7i79eGSNH2dVgWxI8Ka_IGDhvQ&s"
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ63iAuCesBtFQA5pfxobqjNj7i79eGSNH2dVgWxI8Ka_IGDhvQ&s",
+      currentPage: 1,
+      searchListContent: ""
     };
   },
   created() {
     this.fetchData();
   },
   methods: {
-    onSearch() {},
+    onSearch() {
+      axios({
+        url:
+          "http://cangdu.org:8001/v1/pois?city_id=1&keyword=" +
+          this.value +
+          "&type=search"
+      })
+        .then(res => {
+          this.searchListContent = res.data;
+          let lis = document.querySelectorAll("li");
+          console.log(document.querySelectorAll("li"));
+
+          for (let i = 0; i < lis.length; i++) {
+            lis.innerHTML = " ";
+            lis[i].style.top = lis[0].offsetHeight * i + 97 + "px";
+            console.log(lis[i].style.top);
+          }
+        })
+        .catch(err => console.log(err));
+    },
     onLoad() {
       // 异步更新数据
       setTimeout(() => {
@@ -93,10 +120,10 @@ export default {
         }
       }, 500);
     },
-    fetchData(page = 1) {
+    fetchData(page = this.currentPage) {
       this.loading = true;
       getList(page).then(res => {
-        this.list = res.data.books;
+        this.list = res.books;
       });
     }
   }
@@ -105,7 +132,7 @@ export default {
 <style  scoped>
 img {
   width: 100%;
-  height: 250px;
+  height: 60vw;
 }
 .header {
   position: fixed;
@@ -115,5 +142,14 @@ img {
 }
 .main {
   margin-top: 60px;
+}
+
+.searlist li {
+  font-size: 5vw;
+  background: rgba(255, 255, 255, 0.7);
+  text-indent: 10vw;
+  width: 100%;
+  position: fixed;
+  z-index: 3;
 }
 </style>

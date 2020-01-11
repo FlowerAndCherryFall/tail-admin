@@ -22,24 +22,34 @@
 </template>
 
 <script>
-import { getList } from "@/api/login";
+import { postLogin } from "@/api/user";
+import { setToken } from "@/utils/auth";
 export default {
   data() {
     return {
-      username: "admin",
-      password: "admin@12138"
+      username: "1324567diao",
+      password: "123456"
     };
   },
+
   methods: {
     onClickButtonSubmit() {
       if (this.username == "" || this.password == "") {
         this.$toast("密码或账号为空");
       } else {
-        getList({
+        postLogin({
           userName: this.username,
           password: this.password
         }).then(res => {
           console.log(res);
+          if (res.code == "error") {
+            this.$toast(res.message);
+          } else {
+            setToken(res.token);
+            /**这里因为请求是异步的所以应该吧跳转写到里面 */
+            this.$router.push("myself");
+            this.$store.dispatch("token", res.token);
+          }
         });
       }
     }
