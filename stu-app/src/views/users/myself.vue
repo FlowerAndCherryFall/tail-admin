@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { getToken, removeToken } from "@/utils/auth";
 import { Dialog } from "vant";
 import { getInfo } from "@/api/user";
 export default {
@@ -33,13 +32,14 @@ export default {
   },
   methods: {
     judgeLogin() {
-      this.a = getToken();
+      this.a = localStorage.getItem("user_token");
+      // console.log(this.a);
       if (this.a) {
         getInfo(this.a).then(res => {
-          // console.log(res);
+          console.log(res);
+          console.log(this.a);
           this.msg = res.nickName;
           this.a = "http://localhost:3009" + res.avatar;
-          console.log(this.a);
         });
       }
     },
@@ -51,7 +51,7 @@ export default {
         })
           .then(() => {
             // on confirm
-            removeToken();
+            localStorage.removeItem("user_token");
             this.a = "";
           })
           .catch(() => {

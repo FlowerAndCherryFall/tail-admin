@@ -10,7 +10,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
   response => {
     /**请求内容 */
-    console.log(response);
+    // console.log(response);
     const res = response.data;
     return res;
   },
@@ -26,14 +26,22 @@ instance.interceptors.response.use(
   }
 );
 instance.interceptors.request.use(config => {
+  // console.log(config);
+  return config;
+});
+/*这里是指每个请求 都会经过这里设置请求头 哪怕设置过了也依然会再次重新设置
+而此次所做涉及到了 两个不同的token请求头 无论哪一个放在这里都会使另外一个出现bug
+ * instance.interceptors.request.use(config => {
+  console.log(config);
   if (store.getters.token) {
     // console.log(1);
     config.headers["authorization"] = "Bearer " + getToken(); //为请求头设置请求头
   }
-  // console.log(config);
+
   return config;
-});
+}); */
 export function get(url, params) {
+  // console.log(url);
   return instance.get(url, params);
 }
 

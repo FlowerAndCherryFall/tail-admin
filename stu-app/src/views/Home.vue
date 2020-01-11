@@ -1,20 +1,12 @@
 <template>
   <div class="home">
-    <div class="header">
-      <van-search
-        v-model="value"
-        placeholder="请输入搜索关键词"
-        show-action
-        shape="round"
-        @search="onSearch"
-      >
-        <div slot="action" @click="onSearch">搜索</div>
-      </van-search>
+    <div class="header" @click="jump">
+      <van-search placeholder="请输入搜索关键词" v-model="value" />
     </div>
     <div class="main">
-      <ul class="searlist" v-for="p in searchListContent" :key="p.latitude">
-        <li>{{p.name}}</li>
-      </ul>
+      <!-- 这里是刷新的开始区间 刷新还有bug-->
+      <van-pull-refresh @refresh="onRefresh" v-model="isLoading"></van-pull-refresh>
+      <!-- 轮播图 -->
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>
           <img src="../../public/img/8.jpg" alt />
@@ -23,9 +15,10 @@
           <img src="../../public/img/011.jpg" alt />
         </van-swipe-item>
       </van-swipe>
+
       <!-- 列表 -->
       <van-grid :column-num="5">
-        <van-grid-item icon="photo-o" text="文字" />
+        <van-grid-item to="/check" icon="fire" text="请假" />
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
@@ -36,6 +29,7 @@
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
       </van-grid>
+
       <van-grid :column-num="2">
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
@@ -43,6 +37,7 @@
         <van-grid-item icon="photo-o" text="文字" />
       </van-grid>
 
+      <!-- 书籍 -->
       <div class="book" v-for="p in list" :key="p._id">
         <van-card
           :desc="p.descriptions"
@@ -58,14 +53,16 @@
           </div>
         </van-card>
       </div>
-      <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5" />
+      <!-- 这里是刷新的结束区间 -->
     </div>
   </div>
 </template>
 
 <script>
 import { getList } from "@/api/book";
-import axios from "axios";
+import { Administrators } from "@/api/user";
+import request from "@/utils/request";
+import { setToken } from "@/utils/auth";
 import { type } from "os";
 export default {
   name: "home",
@@ -78,32 +75,16 @@ export default {
       defimg:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ63iAuCesBtFQA5pfxobqjNj7i79eGSNH2dVgWxI8Ka_IGDhvQ&s",
       currentPage: 1,
-      searchListContent: ""
+      count: 0,
+      isLoading: false
     };
   },
   created() {
     this.fetchData();
   },
   methods: {
-    onSearch() {
-      axios({
-        url:
-          "http://cangdu.org:8001/v1/pois?city_id=1&keyword=" +
-          this.value +
-          "&type=search"
-      })
-        .then(res => {
-          this.searchListContent = res.data;
-          let lis = document.querySelectorAll("li");
-          console.log(document.querySelectorAll("li"));
-
-          for (let i = 0; i < lis.length; i++) {
-            lis.innerHTML = " ";
-            lis[i].style.top = lis[0].offsetHeight * i + 97 + "px";
-            console.log(lis[i].style.top);
-          }
-        })
-        .catch(err => console.log(err));
+    jump() {
+      this.$router.push("search");
     },
     onLoad() {
       // 异步更新数据
@@ -120,14 +101,46 @@ export default {
         }
       }, 500);
     },
-    fetchData(page = this.currentPage) {
+    fetchData(page = this.count) {
       this.loading = true;
       getList(page).then(res => {
         this.list = res.books;
-      });
+      }),
+        Administrators()
+          .then(res => {
+            // console.log(res);
+            this.admsg = res.token;
+            setToken(res.token);
+          })
+          .catch(err => console.log(err));
+    },
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.count++;
+
+        getList(this.count).then(res => {
+          // console.log(res);
+          this.list = res.books;
+        });
+      }, 1000);
     }
   }
 };
+
+/**管理员信息
+ * request({
+              url: "/api/v1/users/manager_info",
+              method: "get",
+              async: false,
+              params: "",
+              headers: {
+                authorization: "Bearer " + this.admsg //设置请求头
+              }
+            })
+              .then(res => console.log(res))
+              .catch(err => console.log(err)); */
 </script>
 <style  scoped>
 img {
@@ -143,13 +156,5 @@ img {
 .main {
   margin-top: 60px;
 }
-
-.searlist li {
-  font-size: 5vw;
-  background: rgba(255, 255, 255, 0.7);
-  text-indent: 10vw;
-  width: 100%;
-  position: fixed;
-  z-index: 3;
-}
 </style>
+

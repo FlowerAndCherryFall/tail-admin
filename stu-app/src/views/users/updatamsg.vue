@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import { getInfo, putInfo, Administrators } from "@/api/user";
+import { getInfo, putInfo } from "@/api/user";
 import request, { get, post } from "@/utils/request";
+
 export default {
   data() {
     return {
@@ -35,33 +36,10 @@ export default {
         this.fileList.push({ as, isImage: true });
         // console.log(this.fileList);
       });
-      Administrators()
-        .then(res => {
-          console.log(res);
-          this.admsg = res.token;
-          // console.log(this.admsg);
-          request({
-            url: "/api/v1/users/manager_info",
-            method: "get",
-            async: false,
-            params: "",
-            headers: {
-              authorization: "Bearer " + this.admsg //设置请求头
-            }
-          })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
     },
     pull() {
-      // this.$store.getters.token  当前用户token值
-
       let htoken = this.admsg;
-      // console.log(this.usertoken + "用户token");
-      // console.log(htoken + "管理员token");
-      // console.log(htoken == this.usertoken);
-      putInfo(htoken, {
+      putInfo({
         nickName: this.nickName,
         userName: this.userName,
         avatar: this.fileList[0]

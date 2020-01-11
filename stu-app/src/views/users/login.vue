@@ -23,7 +23,6 @@
 
 <script>
 import { postLogin } from "@/api/user";
-import { setToken } from "@/utils/auth";
 export default {
   data() {
     return {
@@ -33,6 +32,7 @@ export default {
   },
 
   methods: {
+    // 登录
     onClickButtonSubmit() {
       if (this.username == "" || this.password == "") {
         this.$toast("密码或账号为空");
@@ -43,12 +43,16 @@ export default {
         }).then(res => {
           console.log(res);
           if (res.code == "error") {
-            this.$toast(res.message);
+            this.$toast(usertoeken, res.message);
           } else {
-            setToken(res.token);
+            localStorage.setItem("user_token", res.token);
             /**这里因为请求是异步的所以应该吧跳转写到里面 */
             this.$router.push("myself");
-            this.$store.dispatch("token", res.token);
+            /**这里是vuex 的使用下面第一行是进行传参
+             * 第二行是进行引用 可以在任何地方进行使用
+              * this.$store.dispatch("token", res.token);
+            this.$store.getters.token
+              */
           }
         });
       }

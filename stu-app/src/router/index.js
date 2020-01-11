@@ -40,6 +40,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/timetable.vue"),
   },
+  {
+    path: "/search",
+    name: "search",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/home/search.vue"),
+  },
+  {
+    path: "/check",
+    name: "check",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/home/check.vue"),
+  },
+  {
+    path: "/searchmsg/:id",
+    name: "searchmsg",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/home/searchmsg.vue"),
+  },
 ];
 
 const router = new VueRouter({
