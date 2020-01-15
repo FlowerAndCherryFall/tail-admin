@@ -40,10 +40,11 @@
       />
     </van-popup>
     <p>结束：{{chosedataa}}</p>
-    <van-button size="large" plain type="info">😏 提交</van-button>
+    <van-button @click="committe" size="large" plain type="info">😏 提交</van-button>
   </div>
 </template>
 <script>
+import { check } from "@/api/user";
 export default {
   data() {
     return {
@@ -107,6 +108,19 @@ export default {
         "时" +
         e.getValues()[4] +
         "分";
+    },
+    committe(v) {
+      let a = this.chosedata + "-" + this.chosedataa;
+      if (this.value1 == "") {
+        console.log(v.target.innerText);
+        v.target.innerText = "没有名字😂";
+      } else {
+        check({
+          name: this.value1,
+          descriptions: this.value2,
+          quantity: a
+        }).this(res => console.log(res));
+      }
     }
   }
 };

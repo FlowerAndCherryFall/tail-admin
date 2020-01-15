@@ -49,7 +49,7 @@ export default {
       this.$router.push("/");
     },
     clic(v) {
-      console.log(v.target.innerText);
+      // console.log(v.target.innerText);
       this.$router.push({
         name: "searchmsg",
         params: { id: v.target.innerText }

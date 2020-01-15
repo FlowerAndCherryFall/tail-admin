@@ -19,7 +19,7 @@
       <!-- 列表 -->
       <van-grid :column-num="5">
         <van-grid-item to="/check" icon="fire" text="请假" />
-        <van-grid-item icon="photo-o" text="文字" />
+        <van-grid-item to="/homeWork" icon="coupon-o" text="作业" />
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { getList } from "@/api/book";
+import { getList } from "../api/book";
 import { Administrators } from "@/api/user";
 import request from "@/utils/request";
 import { setToken } from "@/utils/auth";
@@ -128,19 +128,6 @@ export default {
     }
   }
 };
-
-/**管理员信息
- * request({
-              url: "/api/v1/users/manager_info",
-              method: "get",
-              async: false,
-              params: "",
-              headers: {
-                authorization: "Bearer " + this.admsg //设置请求头
-              }
-            })
-              .then(res => console.log(res))
-              .catch(err => console.log(err)); */
 </script>
 <style  scoped>
 img {

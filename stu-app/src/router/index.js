@@ -58,6 +58,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/home/searchmsg.vue"),
   },
+  {
+    path: "/homeWork",
+    name: "homeWork",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/about/homeWork.vue"),
+  },
+  {
+    path: "/checkWork/:id",
+    name: "checkWork",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/about/checkWork.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,12 +1,13 @@
-import request, { get, post } from "@/utils/request";
-import { getToken } from "@/utils/auth";
+import request, { get, post } from "../utils/request";
+import { getToken } from "../utils/auth";
+import axios from "axios";
 /**登录 */
 export function postLogin(params) {
   return post("/api/v1/auth/login", params);
 }
 /**管理员登录 */
 export function Administrators() {
-  let data = { userName: "admin", password: "admin@12138" };
+  let data = { userName: "admin", password: "admin" };
   return post("/api/v1/auth/manager_login", data);
 }
 /**获取用户信息 */
@@ -21,6 +22,7 @@ export function getInfo() {
 }
 /**修改用户信息 */
 export function putInfo(params) {
+  console.log(getToken());
   return request({
     url: "/api/v1/admin/users/5c6e953a224d199e15f12b9d",
     method: "put",
@@ -31,23 +33,12 @@ export function putInfo(params) {
   });
 }
 
-/**获取课程例表 */
-export function taskTable(params) {
+/**发送考勤 */
+export function check(data) {
   return request({
     url: "/api/v1/admin/products",
-    method: "get",
-    params: params,
-    headers: {
-      authorization: "Bearer " + getToken(), //设置请求头
-    },
-  });
-}
-/**获取学期例表 */
-export function Semester(params) {
-  return request({
-    url: "/api/v1/admin/product_categories",
-    method: "get",
-    params: params,
+    data: data,
+    method: "post",
     headers: {
       authorization: "Bearer " + getToken(), //设置请求头
     },
