@@ -37,38 +37,37 @@ const routes = [
   {
     path: "/timetable",
     name: "timetable",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/timetable.vue"),
+    component: () => import("../views/timetable.vue"),
   },
   {
     path: "/search",
     name: "search",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/home/search.vue"),
+    component: () => import("../views/home/search.vue"),
   },
   {
     path: "/check",
     name: "check",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/home/check.vue"),
+    component: () => import("../views/home/check.vue"),
   },
   {
     path: "/searchmsg/:id",
     name: "searchmsg",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/home/searchmsg.vue"),
+    component: () => import("../views/home/searchmsg.vue"),
   },
   {
     path: "/homeWork",
     name: "homeWork",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/about/homeWork.vue"),
+    component: () => import("../views/about/homeWork.vue"),
   },
   {
     path: "/checkWork/:id",
     name: "checkWork",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/about/checkWork.vue"),
+    component: () => import("../views/about/checkWork.vue"),
+  },
+  {
+    path: "/showCheck",
+    name: "showCheck",
+    component: () => import("../views/home/showCheck.vue"),
   },
 ];
 

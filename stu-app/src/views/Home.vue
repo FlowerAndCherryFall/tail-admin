@@ -9,10 +9,25 @@
       <!-- 轮播图 -->
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>
-          <img src="../../public/img/8.jpg" alt />
+          <img
+            src="http://www.huel.edu.cn/__local/E/86/B2/486E8EFAFBC96FB28325609430C_4B022088_3F4A4.jpg"
+            alt
+          />
         </van-swipe-item>
         <van-swipe-item>
-          <img src="../../public/img/011.jpg" alt />
+          <img
+            src="http://www.huel.edu.cn/__local/3/75/0F/AB742CA1F3D6213E432F2C91E82_0A7E43C3_3D111.jpg"
+            alt
+          />
+        </van-swipe-item>
+        <van-swipe-item>
+          <img
+            src="http://www.huel.edu.cn/__local/3/9A/14/1285B80E76DCC39976E7455F4DB_81BC6D8D_2FFDF.jpg"
+            alt
+          />
+        </van-swipe-item>
+        <van-swipe-item>
+          <img src="http://www.huel.edu.cn/_mediafile/huel/2019/02/22/2cqm7bnwdu.jpg" alt />
         </van-swipe-item>
       </van-swipe>
 
@@ -20,13 +35,13 @@
       <van-grid :column-num="5">
         <van-grid-item to="/check" icon="fire" text="请假" />
         <van-grid-item to="/homeWork" icon="coupon-o" text="作业" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
-        <van-grid-item icon="photo-o" text="文字" />
+        <van-grid-item icon="star-o" to="/showCheck" text="请假查看" />
+        <van-grid-item icon="user-o" text="文字" />
+        <van-grid-item icon="flower-o" text="文字" />
+        <van-grid-item icon="flower-o" text="文字" />
+        <van-grid-item icon="user-o" text="文字" />
+        <van-grid-item icon="user-o" text="文字" />
+        <van-grid-item icon="star-o" text="文字" />
         <van-grid-item icon="photo-o" text="文字" />
       </van-grid>
 
@@ -106,6 +121,7 @@ export default {
       getList(page).then(res => {
         this.list = res.books;
       }),
+        /**管理员登录 */
         Administrators()
           .then(res => {
             // console.log(res);
@@ -132,7 +148,6 @@ export default {
 <style  scoped>
 img {
   width: 100%;
-  height: 60vw;
 }
 .header {
   position: fixed;

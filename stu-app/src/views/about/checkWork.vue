@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import { check } from "@/api/user";
+import { check, getInfo } from "@/api/user";
 import axios from "axios";
 import { getToken } from "../../utils/auth";
 export default {
@@ -29,6 +29,9 @@ export default {
   methods: {
     star() {
       this.name = this.$route.params.id;
+      getInfo(localStorage.getItem("user_token")).then(
+        res => (this.ruleForm.name = res.nickName)
+      );
     },
     onClickLeft() {
       history.back();
@@ -36,9 +39,9 @@ export default {
     commit() {
       let a = new Date();
       let timer = a.getHours() + ":" + a.getMinutes();
-      this.ruleForm.name = "热心市民金先生";
       this.ruleForm.quantity = timer;
       this.ruleForm.descriptions = this.$route.params.id;
+      this.ruleForm.price = "签到";
       check(this.ruleForm).then(res => console.log(res));
     }
   }

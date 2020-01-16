@@ -2,7 +2,7 @@
 <template>
   <div class="main">
     <div class="message" @click="updatamsg">
-      <van-image round width="30vw" height="30vw" :src="a " />
+      <van-image round width="30vw" height="30vw" :src="a" />
       <div class="userShow">
         <span>{{msg}}</span>
         <p>{{desc}}</p>
@@ -39,7 +39,13 @@ export default {
           console.log(res);
           console.log(this.a);
           this.msg = res.nickName;
-          this.a = "http://localhost:3009" + res.avatar;
+          let imgur = res.avatar;
+
+          if (imgur.indexOf("data:image") > -1) {
+            this.a = res.avatar;
+          } else {
+            this.a = "http://192.168.16.54:3000" + res.avatar;
+          }
         });
       }
     },

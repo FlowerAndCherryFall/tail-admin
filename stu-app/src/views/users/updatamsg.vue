@@ -1,11 +1,11 @@
 <template>
   <div class="updata">
-    <h1 style="text-align:center;text-shadow:1px 1px red; ">修改</h1>
+    <h1 style="text-align:center;text-shadow:1px 1px red; ">修改🧐</h1>
     <van-field v-model="userName" label="昵称" />
     <van-field v-model="nickName" label="用户名" />
-    <van-uploader v-model="fileList" multiple :max-count="1" />
+    <van-uploader v-model="fileList" :after-read="afterRead" multiple :max-count="1" />
     <p style="text-align:center;">
-      <van-button type="primary" @click="pull">主要按钮</van-button>
+      <van-button type="primary" @click="pull">修改👌</van-button>
     </p>
   </div>
 </template>
@@ -22,42 +22,45 @@ export default {
       fileList: [],
       nickName: "",
       admsg: "",
-      tiimg: ""
+      tiimg: "",
+      id: ""
     };
   },
   created() {
     this.getmsg();
   },
   methods: {
+    /**图片上传 */
+    afterRead(file) {
+      // 此时可以自行将文件上传至服务器
+      console.log(file.content);
+      this.tiimg = file.content;
+    },
+    /**加载时获取 展示数据 */
     getmsg() {
-      this.usertoken = this.$store.getters.token;
+      this.usertoken = localStorage.getItem("user_token");
+      // console.log(this.usertoken);
       getInfo(this.usertoken).then(res => {
+        this.id = res._id;
         this.userName = res.userName;
         this.nickName = res.nickName;
-        this.tiimg = "http://localhost:3009" + res.avatar;
+        this.tiimg = res.avatar;
         let as = this.tiimg;
         // console.log(as);
         this.fileList.push({ isImage: true, as });
         // console.log(this.fileList);
       });
     },
+    /** 修改数据 */
     pull() {
+      console.log(this.fileList[0]);
       let params = {
         nickName: this.nickName,
         userName: this.userName,
         avatar: this.tiimg
       };
-      axios({
-        url:
-          "http://localhost:3009/api/v1/admin/users/5c6e953a224d199e15f12b9d",
-        method: "put",
-        params: params,
-        headers: {
-          authorization: "Bearer " + this.$store.getters.adtoken //设置请求头
-        }
-      })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+      // console.log(params);
+      putInfo(this.id, params).then(res => history.back());
     }
   }
 };

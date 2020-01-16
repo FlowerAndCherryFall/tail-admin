@@ -21,12 +21,12 @@ export function getInfo() {
   });
 }
 /**修改用户信息 */
-export function putInfo(params) {
-  console.log(getToken());
+export function putInfo(id, params) {
+  console.log(params);
   return request({
-    url: "/api/v1/admin/users/5c6e953a224d199e15f12b9d",
+    url: "/api/v1/admin/users/" + id,
     method: "put",
-    params: params,
+    data: params,
     headers: {
       authorization: "Bearer " + getToken(), //设置请求头
     },
@@ -39,6 +39,16 @@ export function check(data) {
     url: "/api/v1/admin/products",
     data: data,
     method: "post",
+    headers: {
+      authorization: "Bearer " + getToken(), //设置请求头
+    },
+  });
+}
+/**获取信息 */
+export function getmsg() {
+  return request({
+    url: "/api/v1/products",
+    method: "get",
     headers: {
       authorization: "Bearer " + getToken(), //设置请求头
     },

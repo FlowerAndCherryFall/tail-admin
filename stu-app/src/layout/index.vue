@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="top">
-      <van-panel title="我" status="更多"></van-panel>
+      <van-nav-bar title="sweet" left-arrow />
     </div>
     <div class="main">
       <router-view />

@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { check } from "@/api/user";
+import { check, getInfo } from "@/api/user";
 export default {
   data() {
     return {
@@ -59,6 +59,11 @@ export default {
       show: false,
       showa: false
     };
+  },
+  created() {
+    getInfo(localStorage.getItem("user_token")).then(
+      res => (this.value1 = res.nickName)
+    );
   },
   methods: {
     onClickLeft() {
@@ -111,15 +116,18 @@ export default {
     },
     committe(v) {
       let a = this.chosedata + "-" + this.chosedataa;
-      if (this.value1 == "") {
+      if (this.value2 == "") {
         console.log(v.target.innerText);
-        v.target.innerText = "没有名字😂";
+        v.target.innerText = "没有事由😂";
       } else {
         check({
           name: this.value1,
           descriptions: this.value2,
-          quantity: a
-        }).this(res => console.log(res));
+          quantity: a,
+          price: "请假"
+        }).then(res => {
+          (v.target.innerText = "成功😉"), history.back();
+        });
       }
     }
   }

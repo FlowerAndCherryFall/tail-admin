@@ -2,17 +2,17 @@
   <div class="about">
     <van-tabs v-model="active">
       <h1 style="text-align:center;">课表</h1>
-      <van-tab title="标签 1">
+      <van-tab title="第一学期">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <van-cell v-for="item in list" :key="item._id" :title="item.name" />
         </van-list>
       </van-tab>
-      <van-tab title="标签 2">
+      <van-tab title="第二学期">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <van-cell v-for="item in list1" :key="item._id" :title="item.name" />
         </van-list>
       </van-tab>
-      <van-tab title="标签 3">
+      <van-tab title="第三学期">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <van-cell v-for="item in list2" :key="item._id" :title="item.name" />
         </van-list>

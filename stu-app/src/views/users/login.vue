@@ -26,7 +26,7 @@ import { postLogin } from "@/api/user";
 export default {
   data() {
     return {
-      username: "1324567diao",
+      username: "132456diao",
       password: "123456"
     };
   },
@@ -48,9 +48,10 @@ export default {
             localStorage.setItem("user_token", res.token);
             /**这里因为请求是异步的所以应该吧跳转写到里面 */
             this.$router.push("myself");
+
             /**这里是vuex 的使用下面第一行是进行传参
              * 第二行是进行引用 可以在任何地方进行使用
-              * this.$store.dispatch("token", res.token);
+              *this.$store.dispatch("token", res.token);
             this.$store.getters.token
               */
           }
