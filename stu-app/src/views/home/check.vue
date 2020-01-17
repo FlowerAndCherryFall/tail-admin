@@ -9,6 +9,7 @@
         left-icon="smile-o"
         right-icon="warning-o"
         placeholder="姓名"
+        readonly="readonly"
       />
       <van-field v-model="value2" clearable label="事由" left-icon="coupon" placeholder="事由" />
     </van-cell-group>
@@ -116,9 +117,9 @@ export default {
     },
     committe(v) {
       let a = this.chosedata + "-" + this.chosedataa;
-      if (this.value2 == "") {
+      if (this.value2 == "" && this.value1 == "") {
         console.log(v.target.innerText);
-        v.target.innerText = "没有事由😂";
+        v.target.innerText = "没有事由😂或者没有登录";
       } else {
         check({
           name: this.value1,

@@ -36,15 +36,20 @@ export default {
     onClickLeft() {
       history.back();
     },
-    commit() {
+    commit(v) {
       let a = new Date();
       let timer = a.getHours() + ":" + a.getMinutes();
       this.ruleForm.quantity = timer;
       this.ruleForm.descriptions = this.$route.params.id;
       this.ruleForm.price = "签到";
-      check(this.ruleForm).then(res => {
-        history.back();
-      });
+      // console.log(v);
+      if (this.ruleForm.name == "") {
+        v.target.innerText = "没有登录😂";
+      } else {
+        check(this.ruleForm).then(res => {
+          history.back();
+        });
+      }
     }
   }
 };

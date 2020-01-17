@@ -33,7 +33,6 @@ export default {
     /**图片上传 */
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
-      console.log(file.content);
       this.tiimg = file.content;
     },
     /**加载时获取 展示数据 */

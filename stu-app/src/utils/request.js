@@ -10,7 +10,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
   response => {
     /**请求内容 */
-    console.log(response);
+    // console.log(response);
     const res = response.data;
     return res;
   },

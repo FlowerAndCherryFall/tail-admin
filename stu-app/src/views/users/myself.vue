@@ -9,7 +9,7 @@
       </div>
     </div>
     <van-cell-group>
-      <van-cell title="设置" label />
+      <van-cell :title="timsg" label />
       <van-cell :title="a ? '退出' : '登录'" @click="loOrOut" label />
     </van-cell-group>
   </div>
@@ -24,7 +24,8 @@ export default {
       msg: "热心市民金先生",
       desc: "无",
       a: "",
-      avater: ""
+      avater: "",
+      timsg: "设置"
     };
   },
   created() {
@@ -36,8 +37,8 @@ export default {
       // console.log(this.a);
       if (this.a) {
         getInfo(this.a).then(res => {
-          console.log(res);
-          console.log(this.a);
+          // console.log(res);
+          // console.log(this.a);
           this.msg = res.nickName;
           let imgur = res.avatar;
 
@@ -68,9 +69,14 @@ export default {
       }
     },
     updatamsg() {
-      this.$router.push({
-        name: "updataUser"
-      });
+      let usertoken = localStorage.getItem("user_token");
+      if (usertoken) {
+        this.$router.push({
+          name: "updataUser"
+        });
+      } else {
+        this.timsg = "没有登陆😂";
+      }
     }
   }
 };
