@@ -4,8 +4,6 @@
       <van-search placeholder="请输入搜索关键词" v-model="value" />
     </div>
     <div class="main">
-      <!-- 这里是刷新的开始区间 刷新还有bug-->
-      <van-pull-refresh @refresh="onRefresh" v-model="isLoading"></van-pull-refresh>
       <!-- 轮播图 -->
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>
@@ -101,21 +99,7 @@ export default {
     jump() {
       this.$router.push("search");
     },
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
 
-        // 数据全部加载完成
-        if (this.list.length >= 10) {
-          this.finished = true;
-        }
-      }, 500);
-    },
     fetchData(page = this.count) {
       this.loading = true;
       getList(page).then(res => {

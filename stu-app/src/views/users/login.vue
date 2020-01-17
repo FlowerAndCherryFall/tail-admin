@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="../../../public/img/mai3.jpg" alt />
+    <img src="http://zua.edu.cn/images/07.jpg" alt />
 
     <van-cell-group>
       <van-field

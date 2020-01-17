@@ -7,10 +7,7 @@
       <van-field label="经纬度" :value="latitude" readonly />
     </van-cell-group>
     <p>
-      <img
-        src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2523235567,4009336127&fm=26&gp=0.jpg"
-        alt
-      />
+      <img src="http://zua.edu.cn/images/04.jpg" alt />
     </p>
   </div>
 </template>
@@ -54,5 +51,9 @@ export default {
 p {
   text-align: center;
   margin-top: 10vw;
+}
+img {
+  width: 100%;
+  height: 150px;
 }
 </style>

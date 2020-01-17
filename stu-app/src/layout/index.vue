@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="top">
-      <van-nav-bar title="sweet" left-arrow />
+      <van-nav-bar title="sweet" />
     </div>
     <div class="main">
       <router-view />

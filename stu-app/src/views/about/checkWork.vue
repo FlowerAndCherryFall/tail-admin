@@ -2,7 +2,7 @@
   <div class="check">
     <van-nav-bar :title="name" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="img">
-      <img src="../../../public/img/8.jpg" alt />
+      <img src="http://zua.edu.cn/images/005.jpg" alt />
     </div>
     <van-button @click="commit" style="width:100%; margin-top:20px;" type="primary">签到</van-button>
   </div>
@@ -42,7 +42,9 @@ export default {
       this.ruleForm.quantity = timer;
       this.ruleForm.descriptions = this.$route.params.id;
       this.ruleForm.price = "签到";
-      check(this.ruleForm).then(res => console.log(res));
+      check(this.ruleForm).then(res => {
+        history.back();
+      });
     }
   }
 };
@@ -64,5 +66,6 @@ export default {
 <style  scoped>
 .img img {
   width: 100%;
+  height: 25vw;
 }
 </style>

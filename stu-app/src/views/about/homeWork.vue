@@ -1,5 +1,6 @@
 <template>
   <div class="work">
+    <van-nav-bar title="作业查看" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="workcontent" v-for="p in list" :key="p._id">
       <van-panel :title="p.name" :desc="p.price">
         <div>{{p.descriptions}}</div>
@@ -31,6 +32,9 @@ export default {
         console.log(work);
         this.list = work;
       });
+    },
+    onClickLeft() {
+      history.back();
     }
   }
 };
